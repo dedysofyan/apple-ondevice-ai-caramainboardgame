@@ -1,0 +1,43 @@
+name: OnDeviceAI
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "27.0"
+targets:
+  OnDeviceAI:
+    type: application
+    platform: iOS
+    sources:
+      - path: OnDeviceAI
+    # Apple frameworks used by the AI features. They link automatically through `import`,
+    # but are listed here so they show up in the Xcode project navigator.
+    dependencies:
+      - sdk: FoundationModels.framework   # on-device language model (Apple Intelligence)
+      - sdk: NaturalLanguage.framework    # detect the language of an answer
+      - sdk: Translation.framework        # on-device translation fallback
+      - sdk: Speech.framework             # ask by voice (SpeechAnalyzer)
+      - sdk: AVFoundation.framework       # read answers aloud (AVSpeechSynthesizer)
+      - sdk: Charts.framework             # charts in Kids Mode
+    settings:
+      base:
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        # Change this to your own bundle ID and set your team in Xcode (Signing & Capabilities).
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.ondeviceai.boardgame
+        PRODUCT_NAME: OnDeviceAI
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: "Board Game AI"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "Ask the assistant your board game questions by voice. Audio is processed on your device."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "Turns your spoken question into text on your device so the assistant can answer."
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Automatic
+schemes:
+  OnDeviceAI:
+    build:
+      targets:
+        OnDeviceAI: all
